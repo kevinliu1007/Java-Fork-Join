@@ -53,65 +53,6 @@ public class PMsort extends RecursiveAction{
             array[k++] = tempMergArr[i++];
         }
     }
-	
-	public class merge extends RecursiveAction{
-		int middle;
-		int lowerIndex;
-		int higherIndex;
-		
-		merge(int m, int l, int h){
-			middle = m;
-			lowerIndex = l;
-			higherIndex = h;
-		}
-		
-		private int bisearch(int a, int b, int[] arr, int x){
-			while(a < b){
-				int mid = (a + b) / 2;
-				if(x <= arr[mid]){
-					b = mid;
-				}
-				else{
-					a = mid + 1;
-				}
-			}
-			return b;
-		}
-		
-		protected void compute(){
-			if(higherIndex - lowerIndex < 10000){
-				for (int i = lowerIndex; i <= higherIndex; i++) {
-		            tempMergArr[i] = array[i];
-		        }
-		        int i = lowerIndex;
-		        int j = middle + 1;
-		        int k = lowerIndex;
-		        while (i <= middle && j <= higherIndex) {
-		            if (tempMergArr[i] <= tempMergArr[j]) {
-		                array[k] = tempMergArr[i];
-		                i++;
-		            } else {
-		                array[k] = tempMergArr[j];
-		                j++;
-		            }
-		            k++;
-		        }
-		        while (i <= middle) {
-		            array[k] = tempMergArr[i];
-		            k++;
-		            i++;
-		        }
-		    }
-			else{
-				merge left = new merge(lowerIndex, (middle - lowerIndex) / 2, middle);
-				merge right = new merge(middle + 1, (higherIndex - middle + 1) / 2, higherIndex);
-				left.fork();
-				right.compute();
-				left.join();
-			}
-		}
-	}
-	
 }
 
 
